@@ -46,7 +46,7 @@ class Home extends Component {
                 <RenderItem
                     item={this.state.partners.filter(partner => partner.featured)[0]} />
             </ScrollView>
-        )
+        );
     }
 }
 
