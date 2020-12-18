@@ -55,7 +55,7 @@ class Home extends Component {
             this.state.scaleValue,
             {
                 toValue: 1,
-                duration: 3500,
+                duration: 1500,
                 useNativeDriver: true
             }
         ).start();
