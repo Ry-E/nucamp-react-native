@@ -26,6 +26,31 @@ class Reservation extends Component {
 
     handleReservation() {
         console.log(JSON.stringify(this.state));
+        const message = `Number of Campers: ${this.state.campers}
+                        \nHike in? ${this.state.hikeIn}
+                        \nDate: ${this.state.date.toLocaleDateString('en-US')}`;
+        Alert.alert(
+            'Begin Search?',
+            message,
+            [
+                {
+                    text: 'Cancel',
+                    onPress: () => {
+                        console.log('Reservation Search Canceled');
+                        this.resetForm();
+                    },
+                    style: 'cancel'
+                },
+                {
+                    text: 'OK',
+                    onPress: () => {
+                        this.presentLocalNotification(this.state.date.toLocaleDateString('en-US'));
+                        this.resetForm()
+                    }
+                },
+            ],
+            { cancelable: false }
+        )
     }
 
     resetForm() {
@@ -117,28 +142,7 @@ class Reservation extends Component {
                     <View style={styles.formRow}>
                         <Button
                             onPress={() =>
-                                Alert.alert(
-                                    'Begin Search?',
-                                    `Number of Campers: ${this.state.campers}Hike in? ${this.state.hikeIn}\nDate: ${this.state.date}`,
-                                    [
-                                        {
-                                            text: 'Cancel',
-                                            onPress: () => {
-                                                console.log('Reservation Search Canceled');
-                                                this.resetForm();
-                                            },
-                                            style: 'cancel'
-                                        },
-                                        {
-                                            text: 'OK',
-                                            onPress: () => {
-                                                this.presentLocalNotification(this.state.date.toLocaleDateString('en-US'));
-                                                this.resetForm()
-                                            }
-                                        },
-                                    ],
-                                    { cancelable: false }
-                                )
+                                this.handleReservation()
                             }
                             title='Search'
                             color='#5637DD'
